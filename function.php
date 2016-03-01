@@ -15,18 +15,22 @@ function getIp() {
  
 function cart()
 {
+	
 	if(isset($_GET['add_cart']))
 	{
+		
 		global $con;
 		$ip=getIp();
 		$pro_id=$_GET['add_cart'];
 		$run=mysqli_query($con,"select * from cart where ip_add='$ip' AND p_id='$pro_id'");
 		if(mysqli_num_rows($run)>0)
 		{
+			
 			echo"";
 		}
 		else
 		{
+		
 			$insert="insert into cart (p_id,ip_add) VALUES('$pro_id','$ip')";
 			$run=mysqli_query($con,$insert);
 			echo"<script>alert('you add item to cart')</script>";
@@ -35,12 +39,45 @@ function cart()
 		
 	}
 }
+function calculate()
+{
+	if(isset($_GET['add_cart']))
+	{
+		global $con;
+		$ip=getIp();
+		$run=mysqli_query($con,"select * from cart where ip_add='$ip'");
+		$count=mysqli_num_rows($run);
+		
+	}
+	else{
+		$ip=getIp();
+		global $con;
+		$ip=getIp();
+		$run=mysqli_query($con,"select * from cart where ip_add='$ip'");
+		$count=mysqli_num_rows($run);
+		
+	}
+	echo $count;
+}
 
-
-
-
-
-
+function totalprice(){
+	$total=0;
+	global $con;
+	$ip=getIp();
+	$run=mysqli_query($con,"select * from cart where ip_add='$ip'");
+	while($row=mysqli_fetch_array($run))
+	{
+		$pro_id=$row['p_id'];
+		$run1=mysqli_query($con,"select * from products where product_id='$pro_id'");
+		while($row1=mysqli_fetch_array($run1))
+		{
+			$product_price=array($row1['product_price']);
+			$value=array_sum($product_price);
+			$total +=$value;
+		}
+	}
+	echo $total;
+}
 
 
 	                  /* select  categorie from database  show on sidebar*/
@@ -82,7 +119,7 @@ function getcatpro(){
 			 <img src='product_images/$pro_image' width='130' height='160' />
 			 <p><b> $pro_price</b></p>
 			 <a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
-			 <a href='index.php?add_cart=$pro_id'><button style='float:right'>Add to cart</a>
+			 <a href='main.php?add_cart=$pro_id'><button style='float:right'>Add to cart</a>
 			 </div>";
 		 }
 		 }
@@ -128,7 +165,7 @@ function getbrandpro()
 			<img src='product_images/$pro_image' width='160' height='160' />
 			 <p><b> $pro_price</b></p>
 			 <a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
-			 <a href='index.php?add_cart=$pro_id'><button style='float:right'>Add to cart</a>
+			 <a href='main.php?add_cart=$pro_id'><button style='float:right'>Add to cart</a>
 			 </div>";
 		
 		}
@@ -190,7 +227,7 @@ function getpro(){
 	
     <p><b>PRICE=$pro_price</b></p>
 	<a href='detail.php?pro_id=$pro_id' style='float:left; color:light-blue; padding:10px;'>Details</a>
-	<a href='index.php?add_cart=$pro_id'><button style='float:right color:gray'>Add to cart</button></a>
+	<a href='main.php?add_cart=$pro_id'><button style='float:right color:gray'>Add to cart</button></a>
 	</div>";
 	
 	}
@@ -217,7 +254,7 @@ function myfunction()
 			<img src='product_images/$pro_image' width='160' height='160' />
 			 <p><b> $pro_price</b></p>
 			 <a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
-			 <a href='index.php?add_cart=$pro_id'><button style='float:right'>Add to cart</a>
+			 <a href='main.php?add_cart=$pro_id'><button style='float:right'>Add to cart</a>
 			 </div>";
 			
 		}

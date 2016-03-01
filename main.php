@@ -48,12 +48,12 @@ general store.com
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<?php cart(); ?>
+
 <div id="cart" class="container-fluid">
 
 <span style="float:right; font-size:18px; padding:5px; line-height:40px;">
 
-Welcome Guest! <b style="color:orange">Shopping cart</b> Total-item:Total-price <a href="cart.php">Go To Cart</a>
+Welcome Guest! <b style="color:orange">Shopping cart</b> Total-item : <?php calculate(); ?>  Total-price : <?php totalprice(); ?> <a href="cart.php">Go To Cart</a>
 </span>
 </div>
                                                              <!--               container                     -->
@@ -63,21 +63,23 @@ Welcome Guest! <b style="color:orange">Shopping cart</b> Total-item:Total-price 
 <div class="container" style="width:200px; float:right;">
 <div style="text-align:center;"><h4>CATEGORIES</h4>
                                                   <!--                 side bar  select categories from database -->
-
+ <?phpvar_dump(cart.php);?>
 <?php getcat(); ?>
 </div>
 <div style="text-align:center;"><h4>BRANDS</h4>
                                          <!--                 side bar  select brand from database -->                                         
 <?php getbrand(); ?>
+
 </div>
 </div>
                                     <!--            get  data  from database -->
-									
+								
 
 <?php
  getpro(); 
- getcatpro();
+ 
  getbrandpro();
+getcatpro();
 ?>
 
 </div>
